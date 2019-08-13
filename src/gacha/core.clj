@@ -1,4 +1,5 @@
 (ns gacha.core
+  (:gen-class)
   (:require [ring.adapter.jetty :as jetty]
             [ring.middleware.resource :as resource]
             [compojure.core :refer :all]
@@ -37,3 +38,6 @@
   (when @server
     (stop-server)
     (start-server)))
+
+(defn -main [& args]
+  (start-server))

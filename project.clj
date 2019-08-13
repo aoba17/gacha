@@ -1,6 +1,6 @@
-(defproject gacha "0.1.0-SNAPSHOT"
-  :description "FIXME: write description"
-  :url "http://example.com/FIXME"
+(defproject gacha "0.2.0-SNAPSHOT"
+  :description "ジェネラティブガチャガチャシミュレーター"
+  :url "https://genegacha.com/"
   :license {:name "EPL-2.0 OR GPL-2.0-or-later WITH Classpath-exception-2.0"
             :url "https://www.eclipse.org/legal/epl-2.0/"}
   :dependencies [[org.clojure/clojure "1.10.0"]
@@ -10,10 +10,31 @@
                  [compojure "1.6.1"]
                  [hiccup "1.0.5"]
                  [environ "1.1.0"]
-                 [bouncer "1.0.1"]]
+                 [bouncer "1.0.1"]
+                 [org.clojure/clojurescript "1.10.520"]
+                 [reagent "0.8.1"]
+                 [cljsjs/react "16.8.6-0"]
+                 [cljsjs/react-dom "16.8.6-0"]
+                 [quil "3.0.0"]
+                 [org.clojure/math.numeric-tower "0.0.4"]
+                 [prismatic/dommy "1.1.0"]]
   :repl-options {:init-ns gacha.core}
-  :plugins [[lein-environ "1.1.0"]]
+  :plugins [[lein-environ "1.1.0"]
+            [lein-cljsbuild "1.1.7"]]
+  :cljsbuild
+  {:builds [{:source-paths ["src-cljs"]
+             :compiler
+             {:output-to "resources/public/js/main.js"
+              :optimizations :whitespace
+              :pretty-print true}}]}
   :profiles
-  {:dev {:dependencies [[alembic "0.3.2"]
-                        [prone "2019-07-08"]]
-         :env {:dev true}}})
+  {:dev
+   {:dependencies [[alembic "0.3.2"]
+                   [prone "2019-07-08"]
+                   [cider/piggieback "0.4.1"]
+                   [com.bhauman/figwheel-main "0.2.3"]
+                   [com.bhauman/rebel-readline-cljs "0.1.4"]]
+    :repl-options {:nrepl-middleware [cider.piggieback/wrap-cljs-repl]}
+    :env {:dev true}}}
+  :main gacha.core
+  :aot [gacha.core])

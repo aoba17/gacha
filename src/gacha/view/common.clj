@@ -5,11 +5,12 @@
   (html5
    [:head
     [:title "ジェネガチャ"]
-    (include-css "/css/normalize.css"
-                 "/css/skeleton.css"
-                 "/css/style.css")
-    (include-js "/js/main.js")]
+    (include-css "css/normalize.css"
+                 "css/skeleton.css"
+                 "css/style.css")]
    [:body.container
     [:header.top-bar
-     [:h1.title "ジェネラティブガチャガチャシミュレーター"]]
-    [:main body]]))
+     [:h1.title "ジェネラティブガチャガチャシミュレーターβ"]]
+    [:main body]
+    (include-js "js/processing.min.js"
+                "js/main.js")]))

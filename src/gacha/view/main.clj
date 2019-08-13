@@ -50,7 +50,7 @@
           [:tbody
            (gacha-setting req)
            ]]
-         [:button.button-primary "ガチャを１回引く(無料)"])]
+         [:button.button-primary "ガチャを１０回引く(無料)"])]
        (common/common req)))
 
 (defn- refill-gacha-setting [{:keys [params]}]
@@ -58,19 +58,25 @@
     (list (create-input :rarity "hidden" rarity)
           (create-input :p-value "hidden" p-value))))
 
-(defn results-5 [results]
+(def art-id-list ["#wave"])
+
+(defn random-id []
+  (nth art-id-list (rand (count art-id-list))))
+
+(defn results-5 [results from until]
   [:div.result
-   (for [r results]
+   (for [n (range from until)]
      [:div.one-fifth.columns.img-box
-      [:img.fit-image {:src "/test_image.png"}]
-      [:p.rarity r]])])
+      [:div.content
+       [(keyword (str "div" (random-id) n))]]
+      [:p.rarity (nth results (- n from))]])])
 
 (defn gacha-view [results req]
   (->> (let [setting (refill-gacha-setting req)]
          [:section
           [:h4 "結果"]
-          (results-5 (take 5 results))
-          (results-5 (drop 5 results))
+          (results-5 (take 5 results) 0 5)
+          (results-5 (drop 5 results) 5 10)  
           (hf/form-to
            [:post "gacha"]
            setting
