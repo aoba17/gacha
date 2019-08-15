@@ -12,5 +12,7 @@
     [:header.top-bar
      [:h1.title "ジェネラティブガチャガチャシミュレーターβ"]]
     [:main body]
+    [:div#app]
     (include-js "js/processing.min.js"
-                "js/main.js")]))
+                "js/main.js"
+                "/cljs-out/dev-main.js")]))
