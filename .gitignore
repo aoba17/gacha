@@ -12,3 +12,5 @@ pom.xml.asc
 .hg/
 /*nashorn*
 .DS_Store
+.rebel_readline_history
+/resources/public/cljs-out

@@ -1,0 +1,4 @@
+{:target-dir "resources"
+ :watch-dirs ["src-cljs"]
+ :css-dirs ["resources/public/css"]
+ :ring-handler gacha.handler.main/main-routes}
