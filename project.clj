@@ -18,7 +18,7 @@
                  [quil "3.0.0"]
                  [org.clojure/math.numeric-tower "0.0.4"]
                  [prismatic/dommy "1.1.0"]]
-  :resource-paths ["target" "resources" "src-cljs"]
+  :resource-paths ["resources" "src-cljs"]
   :aliases {"fig" ["trampoline" "run" "-m" "figwheel.main"]
             "build-dev" ["trampoline" "run" "-m" "figwheel.main" "-b" "dev" "-r"]}
   :repl-options {:init-ns gacha.core}
@@ -39,5 +39,6 @@
                    [com.bhauman/rebel-readline-cljs "0.1.4"]]
     :repl-options {:nrepl-middleware [cider.piggieback/wrap-cljs-repl]}
     :env {:dev true}}}
+  :clean-targets ^{:protect false} [:target-path "target"]
   :main gacha.core
   :aot [gacha.core])
