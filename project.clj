@@ -17,19 +17,9 @@
                  [cljsjs/react-dom "16.8.6-0"]
                  [quil "3.0.0"]
                  [org.clojure/math.numeric-tower "0.0.4"]
-                 [prismatic/dommy "1.1.0"]]
+                 [prismatic/dommy "1.1.0"]
+                 [garden "1.3.9"]]
   :resource-paths ["resources" "src-cljs"]
-  :aliases {"fig" ["trampoline" "run" "-m" "figwheel.main"]
-            "build-dev" ["trampoline" "run" "-m" "figwheel.main" "-b" "dev" "-r"]}
-  :repl-options {:init-ns gacha.core}
-  :plugins [[lein-environ "1.1.0"]
-            [lein-cljsbuild "1.1.7"]]
-  :cljsbuild
-  {:builds [{:source-paths ["src-cljs"]
-             :compiler
-             {:output-to "resources/public/js/main.js"
-              :optimizations :advanced
-              :pretty-print false}}]}
   :profiles
   {:dev
    {:dependencies [[alembic "0.3.2"]
@@ -39,6 +29,23 @@
                    [com.bhauman/rebel-readline-cljs "0.1.4"]]
     :repl-options {:nrepl-middleware [cider.piggieback/wrap-cljs-repl]}
     :env {:dev true}}}
+
+  :repl-options {:init-ns gacha.core}
+  :plugins [[lein-environ "1.1.0"]
+            [lein-cljsbuild "1.1.7"]
+            [lein-garden "0.3.0"]]
+  :cljsbuild
+  {:builds [{:source-paths ["src-cljs"]
+             :compiler
+             {:output-to "resources/public/js/main.js"
+              :optimizations :advanced
+              :pretty-print false}}]}
+  :garden
+  {:builds [{:source-paths ["src"]
+             :stylesheet gacha.css/style
+             :compiler {:output-to "resources/public/css/style.css"}}]}
+  :aliases {"fig" ["trampoline" "run" "-m" "figwheel.main"]
+            "build-dev" ["trampoline" "run" "-m" "figwheel.main" "-b" "dev" "-r"]}
   :clean-targets ^{:protect false} [:target-path "target"]
   :main gacha.core
   :aot [gacha.core])
