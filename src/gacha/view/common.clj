@@ -15,4 +15,5 @@
     [:div#app]
     (include-js "js/processing.min.js"
                 "js/main.js"
+                ;; 以下開発用
                 "/cljs-out/dev-main.js")]))

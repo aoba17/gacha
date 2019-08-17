@@ -11,23 +11,19 @@
       result
       (recur r-r d-r
              (conj result
-                   (if (empty? r-f)
-                     d-f
-                     r-f))))))
+                   (if (empty? r-f) d-f r-f))))))
 
-(defn parse-gacha-data [params]
-  (let [rarity (parse-rarity (:rarity params))
-        p-value (g/parse-p-value (:p-value params))]
-    (map vector rarity p-value)))
+(defn parse-gacha-data [{:keys [color rarity p-value]}]
+  (map vector color (parse-rarity rarity) (g/parse-p-value p-value)))
 
 (defn gacha [params]
-  (loop [result (* (rand) 100)
-         [[rarity p-value] & r] (parse-gacha-data params)
-         range 0]
-    (let [new-range (+ range p-value)]
-      (if (< result new-range)
-        rarity
-        (recur result r new-range)))))
+  (let [result (* (rand) 100)]
+    (loop [[[color rarity p-value] & r] (parse-gacha-data params)
+           range 0]
+      (let [new-range (+ range p-value)]
+        (if (< result new-range)
+          [color rarity]
+          (recur r new-range))))))
 
 (defn gacha-10 [params]
   (loop [count 0 results []]

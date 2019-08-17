@@ -1,58 +1,59 @@
 header.top-bar {
-    padding: 5px;
-    text-align: center;
+  padding: 5px;
+  text-align: center;
 }
 
 h1.title {
-    font-size: 4.5rem;
+  font-size: 4.5rem;
 }
 
 div.result {
-    margin-bottom: 1.0rem;
-    overflow: hidden;
+  margin-bottom: 1.5rem;
+  overflow: hidden;
 }
 
 div.img-box {
-    position: relative;
-    border: 1px solid skyblue;
+  position: relative;
+  box-shadow: 0px 0px 20px #999999;
+  box-sizing: border-box;
 }
 
 canvas {
-    width:auto !important;
-    height:auto !important;
-    max-width:100%;
-    max-height:100%;
-    
+  width: auto !important;
+  height: auto !important;
+  max-width: 100%;
+  max-height: 100%;
 }
 
 p.rarity {
-    position: absolute;
-    top: 0;
-    left: 0;
-    color: whitesmoke;
-    background: skyblue;
-    padding: 5px 10px;
-    font-weight: bold;
-    z-index: 0;
+  position: absolute;
+  top: 0;
+  left: 0;
+  color: whitesmoke;
+  padding: 5px 10px;
+  font-weight: bold;
+  z-index: 0;
+}
+
+div.content {
+  position: absolute;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  right: 0;
+  z-index: -1;
+}
+
+body.container {
+  max-width: 100%;
 }
 
 @media (min-width: 550px) {
-    .one-fifth.columns {
-        width: 16.8%;
-        padding-top: 19.5%;
-        position: relative;
-    }
-}
 
-.content {
-    position: absolute;
-    top: 0;
-    left: 0;
-    bottom: 0;
-    right: 0;
-    z-index: -1;
-}
+  .one-fifth.columns {
+    width: 16.8%;
+    padding-top: 19.5%;
+    position: relative;
+  }
 
-.container {
-    max-width: 100%;
 }
