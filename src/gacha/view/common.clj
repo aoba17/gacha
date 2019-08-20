@@ -19,4 +19,5 @@
      [:div#app]]
     (include-js "js/main.js"
                 ;; 以下開発用
-                ;;"/cljs-out/dev-main.js")]))
+                ;;"/cljs-out/dev-main.js"
+                )]))
