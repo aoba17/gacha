@@ -9,9 +9,12 @@
                  "css/skeleton.css"
                  "css/style.css")]
    [:body
-    (if (= (:uri req) "/")
-      [:div.content
-       [:div#bgsphere.background-art]])
+    (let [uri (:uri req)]
+      (if (or (= uri "/")
+              (and (not (nil? (:errors req)))
+                   (= uri "/gacha")))
+        [:div.content
+         [:div#bgsphere.background-art]]))
     [:section.container
      [:header.top-bar
       [:h1.title "ジェネラティブガチャガチャシミュレーターβ"]]
