@@ -1,4 +1,4 @@
-(defproject gacha "0.2.0-SNAPSHOT"
+(defproject gacha "0.3.0-SNAPSHOT"
   :description "ジェネラティブガチャガチャシミュレーター"
   :url "https://genegacha.com/"
   :license {:name "EPL-2.0 OR GPL-2.0-or-later WITH Classpath-exception-2.0"
@@ -16,8 +16,6 @@
                  [cljsjs/react "16.8.6-0"]
                  [cljsjs/react-dom "16.8.6-0"]
                  [quil "3.0.0"]
-                 [org.clojure/math.numeric-tower "0.0.4"]
-                 [prismatic/dommy "1.1.0"]
                  [garden "1.3.9"]]
   :resource-paths ["resources" "src-cljs"]
   :profiles

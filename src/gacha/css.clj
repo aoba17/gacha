@@ -26,6 +26,12 @@
     :max-width (percent 100)
     :max-height (percent 100)}]
 
+  [:.background-art
+   {:position :absolute
+    :top 0 :left 0
+    :width (percent 100)
+    :z-index -5}]
+
   [:p.rarity
    {:position :absolute
     :top 0
