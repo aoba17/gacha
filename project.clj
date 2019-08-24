@@ -16,7 +16,8 @@
                  [cljsjs/react "16.8.6-0"]
                  [cljsjs/react-dom "16.8.6-0"]
                  [quil "3.0.0"]
-                 [garden "1.3.9"]]
+                 [garden "1.3.9"]
+                 [org.clojure/data.csv "0.1.4"]]
   :resource-paths ["resources" "src-cljs"]
   :profiles
   {:dev

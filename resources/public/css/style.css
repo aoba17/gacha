@@ -38,7 +38,7 @@ p.rarity {
   top: 0;
   left: 0;
   color: whitesmoke;
-  padding: 5px 10px;
+  padding: 2px 2px;
   font-weight: bold;
   z-index: 0;
 }
@@ -52,8 +52,18 @@ div.content {
   z-index: -1;
 }
 
-body.container {
+.container {
   max-width: 100%;
+}
+
+#chara-input {
+  overflow: auto;
+}
+
+p.character {
+  text-align: center;
+  margin-bottom: 0;
+  border-top: 0.5rem solid gray;
 }
 
 @media (min-width: 550px) {
