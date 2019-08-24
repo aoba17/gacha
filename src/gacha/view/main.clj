@@ -3,13 +3,18 @@
             [gacha.view.common :as common]
             [garden.core :refer [css]]))
 
-(def thread-titles ["枠色" "レアリティ" "確率(%)"])
+(def thread-titles ["枠色" "レアリティ" "確率(%)" "キャラクター(CSV)"])
 
-(def initial-values [["#FF8C00" "UR" 2]
-                     ["#800080" "SSR" 5]
-                     ["#006400" "SR" 20.5]
-                     ["#4169E1" "R" 72.5]
-                     ["#696969" "" 0]])
+(def initial-values [["#FF8C00" "サザエさん一家" 2
+                      "サザエ,波平,フネ,マスオ,カツオ,ワカメ,タラちゃん,タマ"]
+                     ["#800080" "浜野家" 5
+                      "ノリスケ,タイコ,イクラちゃん"]
+                     ["#006400" "伊佐坂家" 20.5
+                      "伊佐坂先生,おかる,甚六,浮江"]
+                     ["#4169E1" "かもめ第三小学校" 72.5
+                      "中島,かおりちゃん,早川さん,花沢さん,橋本くん,西原くん,堀川くん"]
+                     ["#696969" "その他" 0
+                      "穴子さん,サブちゃん"]])
 
 (defn- map-tag [tag value]
   (map (fn [x] [tag x]) value))
@@ -17,23 +22,25 @@
 (defn- error-messages [req]
   (when-let [errors (:errors req)]
     [:ul
-     (for [[k v] errors
-           msg v]
+     (for [[_ msg] errors]
        [:li.error-message msg])]))
 
 (defn- create-input [name type value]
   [:input {:name name :type type :value value}])
 
 (defn- create-a-row [values]
-  (for [[color rarity p-value] values]
-    (list 
+  (for [[color rarity p-value character] values]
+    (list
      [:tr
       [:td (create-input :color "color" color)]
       [:td (create-input :rarity "text" rarity)]
-      [:td (create-input :p-value "text" p-value)]])))
+      [:td (create-input :p-value "text" p-value)]
+      [:td [:textarea#chara-input
+            {:name :chara :type "textarea" :cols 30}
+            character]]])))
 
-(defn- setting-rarity-basis [{:keys [color rarity p-value]}]
-  (map vector color rarity p-value))
+(defn- setting-rarity-basis [{:keys [color rarity p-value chara]}]
+  (map vector color rarity p-value chara))
 
 (defn- gacha-setting [{:keys [params]}]
   (if (empty? params)
@@ -42,23 +49,29 @@
 
 (defn home-view [req]
   (->> [:section
-        [:h4 "データを入力してね"]
+        [:h3 "★ 提供割合"]
         (error-messages req)
-        (hf/form-to
-         [:post "gacha"]
-         [:table
-          [:thread
-           [:tr (map-tag :th thread-titles)]]
-          [:tbody
-           (gacha-setting req)]]
-         [:button.button-primary "ガチャを１０回引く(無料)"])]
+        [:div
+         (hf/form-to
+          [:post "gacha"]
+          [:table
+           [:thread
+            [:tr (map-tag :th thread-titles)]]
+           [:tbody
+            (gacha-setting req)]]
+          [:div
+           [:input.button-primary
+            {:type :button
+             :onclick "submit();"
+             :value "10連ガチャ"}]])]]
        (common/common req)))
 
 (defn- refill-gacha-setting [{:keys [params]}]
-  (for [[color rarity p-value] (setting-rarity-basis params)]
+  (for [[color rarity p-value chara] (setting-rarity-basis params)]
     (list (create-input :color "hidden" color)
           (create-input :rarity "hidden" rarity)
-          (create-input :p-value "hidden" p-value))))
+          (create-input :p-value "hidden" p-value)
+          (create-input :chara "hidden" chara))))
 
 (def art-id-list ["#wave"])
 
@@ -68,17 +81,18 @@
 (defn results-5 [results from until]
   [:div.result
    (for [n (range from until)]
-     (let [[color rarity] (nth results (- n from))]
+     (let [[color rarity character] (nth results (- n from))]
        [:div.one-fifth.columns.img-box
         {:style (str "border: 2px solid " color)}
         [:div.content
          [(keyword (str "div" (random-id) n))]]
-        [:p.rarity {:style (str "background: " color)} rarity]]))])
+        [:p.rarity {:style (str "background: " color)} rarity]
+        [:p.character character]]))])
 
 (defn gacha-view [results req]
   (->> (let [setting (refill-gacha-setting req)]
          [:section
-          [:h4 "結果"]
+          [:h3 "結果"]
           (results-5 (take 5 results) 0 5)
           (results-5 (drop 5 results) 5 10)  
           (hf/form-to

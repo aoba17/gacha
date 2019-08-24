@@ -7,7 +7,7 @@
   [:header.top-bar
    {:padding (px 5)
     :text-align "center"}]
-  
+
   [:h1.title
    {:font-size (rem 4.5)}]
 
@@ -37,7 +37,7 @@
     :top 0
     :left 0
     :color :whitesmoke
-    :padding "5px 10px"
+    :padding "2px 2px"
     :font-weight :bold
     :z-index 0}]
 
@@ -49,8 +49,16 @@
     :right 0
     :z-index -1}]
 
-  [:body.container
+  [:.container
    {:max-width (percent 100)}]
+
+  [:#chara-input
+   {:overflow :auto}]
+
+  [:p.character
+   {:text-align :center
+    :margin-bottom 0
+    :border-top "0.5rem solid gray"}]
 
   (at-media
    {:min-width (px 550)}

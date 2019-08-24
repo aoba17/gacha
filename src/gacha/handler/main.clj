@@ -17,18 +17,24 @@
 (defn hundred? [p-value]
   (= 100M (reduce + (g/parse-p-value p-value))))
 
+(defn valid-name-length? [csv]
+  (every? #(<= (count %) 20) (g/parse-csv csv)))
+
 (def gacha-validator
   {:rarity
-   [[v/every #(v/max-count % 20)
+   [[v/every #(v/max-count % 10)
      :message
-     "レアリティは２０文字以内にしてください"]]
+     "レアリティ: 入力できるのは10文字までなんだ"]]
    :p-value
    [[v/every #(v/matches % #"^[0-9]{1,3}(\.[0-9]{1,3})?$")
      :message
-     "確率には数字を入力して下さい(小数点第３位まで入力可能)"]
+     "確率: 半角の数字を入力してくれ(小数点第３位まで入力可能)"]
     [hundred?
      :message
-     "確率の合計値が100になるようにしてください"]]})
+     "確率: 合計値が100になってないみたいだな"]]
+   :chara
+   [[v/every valid-name-length?
+     :message "キャラクター: キャラの名前は最大20文字までだぞ!!"]]})
 
 (defn gacha [{:as req :keys [params]}]
   (uv/with-fallback #(home (assoc req :errors %))
