@@ -1,7 +1,6 @@
 (ns gacha.view.main
   (:require [hiccup.form :as hf]
-            [gacha.view.common :as common]
-            [garden.core :refer [css]]))
+            [gacha.view.common :as common]))
 
 (def thread-titles ["枠色" "レアリティ" "確率(%)" "キャラクター(CSV)"])
 

@@ -5,6 +5,7 @@
             [bouncer.validators :as v]
             [gacha.util.response :as res-util]
             [gacha.view.main :as view]
+            [gacha.view.overview :as overview]
             [gacha.service.main :as service]
             [gacha.util.validation :as uv]
             [gacha.util.gacha :as g]))
@@ -44,8 +45,17 @@
           res/response
           res-util/html))))
 
+(defn overview [req]
+  (-> (overview/overview-view req)
+      res/response
+      res-util/html))
+
 (defroutes main-routes
   (GET "/" _ home)
   (POST "/" _ home)
   (POST "/gacha" _ gacha)
   (route/not-found "<h1>Not found</h1>"))
+
+(defroutes overview-routes
+  (context "/overview" req
+           (GET "/" _ overview)))

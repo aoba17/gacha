@@ -4,9 +4,10 @@
             [garden.stylesheet :refer [at-media]]))
 
 (defstyles style
-  [:header.top-bar
+  [:header
    {:padding (px 5)
-    :text-align "center"}]
+    :display :flex
+    :justify-content :center}]
 
   [:h1.title
    {:font-size (rem 4.5)}]
@@ -59,6 +60,16 @@
    {:text-align :center
     :margin-bottom 0
     :border-top "0.5rem solid gray"}]
+
+  [:footer
+   {:background-color "rgba(245,245,245,0.5)"}]
+
+  [:.site-map
+   {:padding (px 20)}]
+
+  [:.copyright
+   {:display :flex
+    :justify-content :center}]
 
   (at-media
    {:min-width (px 550)}
