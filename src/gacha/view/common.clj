@@ -5,6 +5,8 @@
   (html5
    [:head
     [:title "ジェネガチャ"]
+    [:link {:rel "shortcut icon"
+            :href "favicon.ico"}]
     (include-css "css/normalize.css"
                  "css/skeleton.css"
                  "css/style.css")]
