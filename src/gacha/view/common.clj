@@ -14,16 +14,18 @@
      [:header
       [:h1.title "ジェネラティブガチャガチャシミュレーター"]]]
 
-    ;;(let [uri (:uri req)]
-    ;;  (if (or (= uri "/")
-    ;;          (and (not (nil? (:errors req)))
-    ;;               (= uri "/gacha")))
-    ;;    [:div.content
-    ;;     [:div#bgsphere.background-art]]))
+    (let [uri (:uri req)]
+      (if (or (some #(= uri %) ["/" "/overview"])
+              (and (not (nil? (:errors req)))
+                   (= uri "/gacha")))
+        [:div.content
+         [:div#bgsphere.background-art]]))
 
     [:section.container
      [:main body]
-     [:div#app]]
+     ;; 開発用
+     ;;[:div#app]
+     ]
 
     [:footer.container
      [:section
@@ -42,5 +44,5 @@
 
     (include-js "js/main.js"
                 ;; 以下開発用
-                "/cljs-out/dev-main.js"
+                ;;"/cljs-out/dev-main.js"
                 )]))

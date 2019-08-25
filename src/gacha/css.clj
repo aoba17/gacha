@@ -62,7 +62,7 @@
     :border-top "0.5rem solid gray"}]
 
   [:footer
-   {:background-color :whitesmoke}]
+   {:background-color "rgba(245,245,245,0.5)"}]
 
   [:.site-map
    {:padding (px 20)}]
