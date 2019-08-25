@@ -1,6 +1,7 @@
-header.top-bar {
+header {
   padding: 5px;
-  text-align: center;
+  display: flex;
+  justify-content: center;
 }
 
 h1.title {
@@ -64,6 +65,19 @@ p.character {
   text-align: center;
   margin-bottom: 0;
   border-top: 0.5rem solid gray;
+}
+
+footer {
+  background-color: whitesmoke;
+}
+
+.site-map {
+  padding: 20px;
+}
+
+.copyright {
+  display: flex;
+  justify-content: center;
 }
 
 @media (min-width: 550px) {

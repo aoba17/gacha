@@ -3,7 +3,7 @@
   (:require [ring.adapter.jetty :as jetty]
             [ring.middleware.resource :as resource]
             [compojure.core :refer :all]
-            [gacha.handler.main :refer [main-routes]]
+            [gacha.handler.main :refer [main-routes overview-routes]]
             [gacha.middleware :refer [wrap-dev]]
             [ring.middleware.keyword-params :as keyword-params]
             [ring.middleware.params :as params]
@@ -20,7 +20,8 @@
       handler)))
 
 (def app
-  (-> (routes main-routes)
+  (-> (routes overview-routes
+              main-routes)
       (wrap wrap-dev (:dev env))
       (wrap resource/wrap-resource "public")
       (wrap keyword-params/wrap-keyword-params "true")
