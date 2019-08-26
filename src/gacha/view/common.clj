@@ -7,6 +7,17 @@
     [:title "ジェネガチャ"]
     [:link {:rel "shortcut icon"
             :href "favicon.ico"}]
+
+    ;; Google Analytics
+    [:script
+     {:src "https://www.googletagmanager.com/gtag/js?id=UA-146437299-1", :async "async"}]
+    [:script
+     (str 
+      "window.dataLayer = window.dataLayer || [];"
+      "function gtag(){dataLayer.push(arguments);}"
+      "gtag('js', new Date());"
+      "gtag('config', 'UA-146437299-1');")]
+    
     (include-css "css/normalize.css"
                  "css/skeleton.css"
                  "css/style.css")]
