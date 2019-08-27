@@ -3,11 +3,9 @@
             [quil.middleware :as m])
   (:require-macros [gacha.macros :refer [sketch-maker]]))
 
-(def radius 100)
-(def x (atom 0))
-(def y (atom 0))
-(def z (atom 0))
-(def start-angle 45)
+(def radius 400)
+(def xyz (atom {:x 0 :y 0 :z 0}))
+(def start-angle (+ (rand 150) 15))
 
 (defn setup []
   (q/background 255)
@@ -19,39 +17,33 @@
    :noise (q/noise (q/random 10))})
 
 (defn draw [state]
-  (q/stroke (q/random 200)
-            (q/random 200)
-            (q/random 200))
+  (q/stroke 220 220 220)
   (if (zero? (rem (q/frame-count) 180))
-    (q/background 255))
+    (q/no-loop))
   (when (zero? (rem (q/frame-count) (* 180 5)))
-    (reset! x 0)
-    (reset! y 0)
-    (reset! z 0))
+    (reset! xyz {:x 0 :y 0 :z 0}))
   (let [count (/ (q/frame-count) 6000)
         a (q/radians (+ (:angle-a state)))
         b (q/radians (+ (:angle-b state)))
-        this-x (* (+ radius (:noise state) (rand 15)) (q/cos a) (q/cos b))
-        this-y (* (+ radius (:noise state) (rand 15)) (q/cos a) (q/sin b))
-        this-z (* (+ radius (:noise state) (rand 15)) (q/sin a))]
+        this-x (* (+ radius (:noise state) (- (rand 15) 8)) (q/cos a) (q/cos b))
+        this-y (* (+ radius (:noise state) (- (rand 15) 8)) (q/cos a) (q/sin b))
+        this-z (* (+ radius (:noise state) (- (rand 15) 8)) (q/sin a))]
     (q/rotate-x (q/radians (+ start-angle (* count 0.03))))
     (q/rotate-y (q/radians (+ start-angle (* count 0.03))))
-    (if (not (zero? @x))
-      (q/line this-x this-y this-z @x @y @z))
-    (reset! x this-x)
-    (reset! y this-y)
-    (reset! z this-z)))
+    (if (not (zero? (:x @xyz)))
+      (q/line this-x this-y this-z (:x @xyz) (:y @xyz) (:z @xyz)))
+    (reset! xyz {:x this-x :y this-y :z this-z})))
 
 (defn update-state [{:keys [angle-a angle-b noise]}]
   {:angle-a (+ angle-a 1)
-   :angle-b (+ angle-b 15)
+   :angle-b (+ angle-b (* (q/noise angle-a) 55))
    :noise (if (zero? (rem (q/frame-count) (* 180 5)))
             (q/noise (q/random 10))
             (+ noise 0.1))})
 
 (q/defsketch sphere
   :host "bgsphere"
-  :size [1600 900]
+  :size [2000 1000]
   :renderer :p3d
   :setup setup
   :draw draw

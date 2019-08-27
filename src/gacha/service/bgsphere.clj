@@ -1,7 +1,6 @@
 (ns gacha.service.bgsphere
   (:require [quil.core :as q]
-            [quil.middleware :as m]
-            [clojure.math.numeric-tower :as math]))
+            [quil.middleware :as m]))
 
 (def radius 250)
 (def x (atom 0))

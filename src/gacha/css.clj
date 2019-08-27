@@ -51,7 +51,7 @@
     :z-index -1}]
 
   [:.container
-   {:max-width (percent 100)}]
+   {:max-width (px 1600)}]
 
   [:#chara-input
    {:overflow :auto}]

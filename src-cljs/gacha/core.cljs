@@ -1,5 +1,3 @@
-(ns example.core)
+(ns gacha.core)
 
 (enable-console-print!)
-
-(prn "hello world!")

@@ -1,5 +1,6 @@
 (ns gacha.view.common
-  (:require [hiccup.page :refer [html5 include-css include-js]]))
+  (:require [hiccup.page :refer [html5 include-css include-js]]
+            [environ.core :refer [env]]))
 
 (defn common [req & body]
   (html5
@@ -16,14 +17,15 @@
      [:header
       [:h1.title "ジェネラティブガチャガチャシミュレーター"]]]
 
-    (let [uri (:uri req)]
+    
+
+    [:section.container
+     (let [uri (:uri req)]
       (if (or (some #(= uri %) ["/" "/overview"])
               (and (not (nil? (:errors req)))
                    (= uri "/gacha")))
         [:div.content
          [:div#bgsphere.background-art]]))
-
-    [:section.container
      [:main body]
      ;; 開発用
      ;;[:div#app]
