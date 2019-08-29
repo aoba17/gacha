@@ -11,13 +11,24 @@
 
     ;; Google Analytics
     [:script
-     {:src "https://www.googletagmanager.com/gtag/js?id=UA-146437299-1", :async "async"}]
+     {:src "https://www.googletagmanager.com/gtag/js?id=UA-146437299-1"
+      :async "async"}]
     [:script
      (str 
       "window.dataLayer = window.dataLayer || [];"
       "function gtag(){dataLayer.push(arguments);}"
       "gtag('js', new Date());"
       "gtag('config', 'UA-146437299-1');")]
+
+    ;; Google Adsense
+    [:script
+     {:src "https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"
+      :async "async"}]
+    [:script
+     (str
+      "(adsbygoogle = window.adsbygoogle || []).push({"
+      "     google_ad_client: 'ca-pub-8254198164854212',"
+      "     enable_page_level_ads: true});")]
     
     (include-css "css/normalize.css"
                  "css/skeleton.css"

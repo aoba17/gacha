@@ -72,7 +72,7 @@
           (create-input :p-value "hidden" p-value)
           (create-input :chara "hidden" chara))))
 
-(def art-id-list ["#wave"])
+(def art-id-list ["#wave" "#grid"])
 
 (defn random-id []
   (nth art-id-list (rand (count art-id-list))))
