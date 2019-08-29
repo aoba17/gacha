@@ -14,7 +14,7 @@
   (q/stroke-weight 0.2))
 
 (defn draw-wave-clock []
-  (loop [angle 0
+  (loop [angle (q/random 360)
          angle-noise (q/random 10)
          rad-noise (q/random 10)
          xnoise (q/random 10)
