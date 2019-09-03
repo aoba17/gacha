@@ -74,7 +74,6 @@
        (common/common req)))
 
 (defn- refill-gacha-setting [{:keys [params]}]
-  (prn params)
   (cons 
    (for [[color rarity p-value chara] (setting-rarity-basis params)]
      (list (create-input :color "hidden" color)
