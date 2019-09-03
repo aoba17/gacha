@@ -35,9 +35,9 @@
           [color rarity (rand-nth chara)]
           (recur r new-range))))))
 
-(defn gacha-10 [params]
+(defn gacha-n [{:as params :keys [n-time]}]
   (loop [count 0 results []]
-    (if (= count 10)
+    (if (= count (Integer/parseInt n-time))
       results
       (recur (+ count 1)
              (conj results (gacha params))))))

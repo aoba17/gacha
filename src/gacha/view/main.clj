@@ -46,6 +46,12 @@
     (create-a-row initial-values)
     (create-a-row (setting-rarity-basis params))))
 
+(defn make-option []
+  (for [x (range 1 11)]
+    (if (not= x 10)
+      [:option {:value x} x]
+      [:option {:value x :selected :selected} x])))
+
 (defn home-view [req]
   (->> [:section
         [:h3 "★ 提供割合"]
@@ -59,41 +65,48 @@
            [:tbody
             (gacha-setting req)]]
           [:div
+           [:select {:name :n-time}
+            (make-option)]
            [:input.button-primary
             {:type :button
              :onclick "submit();"
-             :value "10連ガチャ"}]])]]
+             :value "連ガチャ"}]])]]
        (common/common req)))
 
 (defn- refill-gacha-setting [{:keys [params]}]
-  (for [[color rarity p-value chara] (setting-rarity-basis params)]
-    (list (create-input :color "hidden" color)
-          (create-input :rarity "hidden" rarity)
-          (create-input :p-value "hidden" p-value)
-          (create-input :chara "hidden" chara))))
+  (cons 
+   (for [[color rarity p-value chara] (setting-rarity-basis params)]
+     (list (create-input :color "hidden" color)
+           (create-input :rarity "hidden" rarity)
+           (create-input :p-value "hidden" p-value)
+           (create-input :chara "hidden" chara)))
+   (list (create-input :n-time "hidden" (:n-time params)))))
 
 (def art-id-list ["#wave" "#grid"])
 
 (defn random-id []
   (nth art-id-list (rand (count art-id-list))))
 
-(defn results-5 [results from until]
+(defn results-5 [results index]
   [:div.result
-   (for [n (range from until)]
-     (let [[color rarity character] (nth results (- n from))]
-       [:div.one-fifth.columns.img-box
-        {:style (str "border: 2px solid " color)}
-        [:div.content
-         [(keyword (str "div" (random-id) n))]]
-        [:p.rarity {:style (str "background: " color)} rarity]
-        [:p.character character]]))])
+   (let [from (* index 5)
+         to (+ from 5)]
+     (for [n (range from to)
+           :when (< n (count results))]
+       (let [[color rarity character] (nth results n)]
+         [:div.one-fifth.columns.img-box
+          {:style (str "border: 2px solid " color)}
+          [:div.content
+           [(keyword (str "div" (random-id) n))]]
+          [:p.rarity {:style (str "background: " color)} rarity]
+          [:p.character character]])))])
 
 (defn gacha-view [results req]
   (->> (let [setting (refill-gacha-setting req)]
          [:section
           [:h3 "結果"]
-          (results-5 (take 5 results) 0 5)
-          (results-5 (drop 5 results) 5 10)  
+          (for [n (range (inc (quot (dec (count results)) 5)))]
+            (results-5 results n))
           (hf/form-to
            [:post "gacha"]
            setting

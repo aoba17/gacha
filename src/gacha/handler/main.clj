@@ -40,7 +40,7 @@
 (defn gacha [{:as req :keys [params]}]
   (uv/with-fallback #(home (assoc req :errors %))
     (let [params (uv/validate params gacha-validator)]
-      (-> (service/gacha-10 params)
+      (-> (service/gacha-n params)
           (view/gacha-view req)
           res/response
           res-util/html))))
